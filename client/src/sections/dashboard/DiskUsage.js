@@ -17,15 +17,14 @@ class DiskUsage extends React.Component {
     this.state = { diskusage: {} }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     getDiskUsage("C:/").then((diskusage) => {
-      this.setState({ diskusage })
+      this.setState({ diskusage }) //{diskPath: "C:", free: 297667661824, size: 510913409024}
     })
   }
   render() {
     const { classes } = this.props
     const { diskusage } = this.state
-    console.log(diskusage) //{diskPath: "C:", free: 297667661824, size: 510913409024}
     const { diskpath, free, size } = diskusage
 
     return (

@@ -18,7 +18,11 @@ class Subscriptions extends React.Component {
     const { classes } = this.props
     return (
       <Container className={classes.root}>
-        <iframe className={classes.iframe} src='http://localhost:8989' />
+        <iframe
+          className={classes.iframe}
+          title='sonarr'
+          src='http://localhost:8989'
+        />
       </Container>
     )
   }

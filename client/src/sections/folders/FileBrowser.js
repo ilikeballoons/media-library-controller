@@ -53,9 +53,8 @@ class FileBrowser extends React.Component {
       return <MovieIcon />
     } else if (filetypes.subtitle.includes(extension)) {
       return <SubtitlesIcon />
-    } else {
-      return <NoteIcon />
     }
+    return
   }
 
   handleFolderClick = (event, key) => {
@@ -72,55 +71,53 @@ class FileBrowser extends React.Component {
     }
   }
 
-  render() {
-    const { classes } = this.props
-    const { handleFileClick, handleFolderClick, getIcon } = this
-    const { expanded } = this.state
-
-    function buildList(tree, level = 0) {
-      const spacing = `${level * 16}px`
-      if (tree.type === "file") {
-        return [
+  buildList = (tree, level = 0) => {
+    const spacing = `${level * 16}px`
+    if (tree.type === "file") {
+      if (!this.getIcon(tree.extension)) return []
+      return [
+        <ListItem
+          button
+          style={{ paddingLeft: spacing }}
+          key={tree.path}
+          onClick={(e) => this.handleFileClick(e, tree.path)}>
+          <ListItemIcon>{this.getIcon(tree.extension)}</ListItemIcon>
+          <ListItemText primary={tree.name} />
+        </ListItem>
+      ]
+    } else if (tree.type === "directory" && tree.children.length > 0) {
+      return [
+        <List
+          component='div'
+          disablePadding
+          key={tree.path}
+          style={{ paddingLeft: spacing }}>
           <ListItem
             button
-            style={{ paddingLeft: spacing }}
-            key={tree.path}
-            onClick={(e) => handleFileClick(e, tree.path)}>
-            <ListItemIcon>{getIcon(tree.extension)}</ListItemIcon>
+            onClick={(e) => this.handleFolderClick(e, tree.path)}
+            spacing={level}>
+            <ListItemIcon>
+              <FolderIcon />
+            </ListItemIcon>
             <ListItemText primary={tree.name} />
+            <ExpandMore />
           </ListItem>
-        ]
-      } else if (tree.type === "directory" && tree.children.length > 0) {
-        return [
-          <List
-            component='div'
-            disablePadding
-            key={tree.path}
-            style={{ paddingLeft: spacing }}>
-            <ListItem
-              button
-              onClick={(e) => handleFolderClick(e, tree.path)}
-              spacing={level}>
-              <ListItemIcon>
-                <FolderIcon />
-              </ListItemIcon>
-              <ListItemText primary={tree.name} />
-              <ExpandMore />
-            </ListItem>
-            <Collapse
-              in={expanded[tree.path]}
-              timeout='auto'
-              unmountOnExit
-              key={tree.path}>
-              {tree.children.reduce((acc, curr) => {
-                return [...acc, ...buildList(curr, level + 1)]
-              }, [])}
-            </Collapse>
-          </List>
-        ]
-      }
+          <Collapse
+            in={this.state.expanded[tree.path]}
+            timeout='auto'
+            unmountOnExit
+            key={tree.path}>
+            {tree.children.reduce((acc, curr) => {
+              return [...acc, ...this.buildList(curr, level + 1)]
+            }, [])}
+          </Collapse>
+        </List>
+      ]
     }
+  }
 
+  render() {
+    const { classes } = this.props
     return (
       <div>
         <Typography component='h2' variant='h6' color='primary' gutterBottom>
@@ -130,7 +127,7 @@ class FileBrowser extends React.Component {
           component='nav'
           aria-labelledby='file-explorer'
           className={classes.root}>
-          {buildList(this.state.files)}
+          {this.buildList(this.state.files)}
         </List>
       </div>
     )
