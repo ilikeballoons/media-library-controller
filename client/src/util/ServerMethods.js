@@ -15,3 +15,9 @@ export function playFile(path) {
     .then((res) => res.json())
     .then((json) => console.log(json))
 }
+
+export function getDiskUsage(path) {
+  if (!path) return
+  const dir = url.concat("/diskusage?filepath=", path)
+  return fetch(`${dir}`).then((res) => res.json())
+}

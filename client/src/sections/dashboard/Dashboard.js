@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 
 //import Chart from './Chart';
-import Deposits from "./Deposits"
+import DiskUsage from "./DiskUsage"
 import Downloads from "./Downloads"
 
 const useStyles = makeStyles((theme) => ({
@@ -30,10 +30,10 @@ export default function Dashboard() {
       <Grid item xs={12} md={8} lg={9}>
         <Paper className={fixedHeightPaper}>{}</Paper>
       </Grid>
-      {/* Recent Deposits */}
+      {/* Recent DiskUsage */}
       <Grid item xs={12} md={4} lg={3}>
         <Paper className={fixedHeightPaper}>
-          <Deposits />
+          <DiskUsage />
         </Paper>
       </Grid>
       {/* Recent Downloads */}
