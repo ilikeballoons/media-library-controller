@@ -43,7 +43,9 @@ class ListItems extends React.Component {
             </ListItemIcon>
             <ListItemText primary='Folders' />
           </ListItem>
-          <ListItem button disabled>
+          <ListItem
+            button
+            onClick={(e) => this.handleListItemClick(e, "/subscriptions")}>
             <ListItemIcon>
               <SubscriptionsIcon />
             </ListItemIcon>

@@ -19,11 +19,11 @@ import FolderIcon from "@material-ui/icons/Folder"
 import FolderOpenIcon from "@material-ui/icons/FolderOpen"
 
 import { getDirectory, playFile } from "../../util/ServerMethods"
+import { Typography } from "@material-ui/core"
 
 const styles = (theme) => ({
   root: {
     width: "100%",
-    // maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   },
   nested: {
@@ -44,8 +44,6 @@ class FileBrowser extends React.Component {
 
   componentDidMount() {
     getDirectory().then((tree) => {
-      // const files = this.flattenTree(tree.videosTree)
-      console.log(tree)
       this.setState({ files: tree.videosTree })
     })
   }
@@ -61,10 +59,7 @@ class FileBrowser extends React.Component {
   }
 
   handleFolderClick = (event, key) => {
-    console.log(key)
     const { expanded } = this.state
-    console.log(expanded)
-
     expanded[key] = !expanded[key]
     this.setState({ expanded })
   }
@@ -80,10 +75,7 @@ class FileBrowser extends React.Component {
   render() {
     const { classes } = this.props
     const { handleFileClick, handleFolderClick, getIcon } = this
-
     const { expanded } = this.state
-    // const list = this.buildList(this.state.files)
-    // console.log(list)
 
     function buildList(tree, level = 0) {
       const spacing = `${level * 16}px`
@@ -121,7 +113,6 @@ class FileBrowser extends React.Component {
               unmountOnExit
               key={tree.path}>
               {tree.children.reduce((acc, curr) => {
-                // expanded[tree.path] = false
                 return [...acc, ...buildList(curr, level + 1)]
               }, [])}
             </Collapse>
@@ -131,19 +122,17 @@ class FileBrowser extends React.Component {
     }
 
     return (
-      <Container maxWidth='lg'>
+      <div>
+        <Typography component='h2' variant='h6' color='primary' gutterBottom>
+          File Explorer
+        </Typography>
         <List
           component='nav'
           aria-labelledby='file-explorer'
-          subheader={
-            <ListSubheader component='div' id='file-explorer-subheader'>
-              File Explorer
-            </ListSubheader>
-          }
           className={classes.root}>
           {buildList(this.state.files)}
         </List>
-      </Container>
+      </div>
     )
   }
 }

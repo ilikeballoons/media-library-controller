@@ -21,6 +21,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import "./scss/App.scss"
 import Dashboard from "./sections/dashboard/Dashboard"
 import Folders from "./sections/folders/Folders"
+import Subscriptions from "./sections/subscriptions/Subscriptions"
 import ListItems from "./sections/nav/ListItems"
 import MadeWithLove from "./sections/nav/MadeWithLove"
 
@@ -83,7 +84,16 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9)
     }
   },
-  appBarSpacer: theme.mixins.toolbar
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "hidden"
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  }
 }))
 
 function App() {
@@ -153,7 +163,8 @@ function App() {
             <Container maxWidth='lg' className={classes.container}>
               <Route exact path='/' component={DashboardComp} />
               <Route path='/folders' component={FoldersComp} />
-              <MadeWithLove />
+              <Route path='/subscriptions' component={SubsComp} />
+              {/* <MadeWithLove /> */}
             </Container>
           </main>
         </div>
@@ -168,6 +179,10 @@ function DashboardComp() {
 
 function FoldersComp() {
   return <Folders />
+}
+
+function SubsComp() {
+  return <Subscriptions />
 }
 
 export default App

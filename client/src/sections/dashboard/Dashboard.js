@@ -7,7 +7,6 @@ import Paper from "@material-ui/core/Paper"
 //import Chart from './Chart';
 import Deposits from "./Deposits"
 import Downloads from "./Downloads"
-import FolderList from "../folders/FolderList"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
