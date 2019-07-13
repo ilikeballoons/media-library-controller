@@ -15,6 +15,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "deploy": "set \"REACT_APP_SERVERURL=192.168.1.100\"&& npm start",
+    "dev": "set \"REACT_APP_SERVERURL=127.0.0.1:3001\"&& npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
