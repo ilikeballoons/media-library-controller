@@ -4,7 +4,7 @@ const url =
     : process.env.URL
 
 export function getDirectory(path) {
-  const dir = path ? url.concat("/videos/", path) : url.concat("/videos")
+  const dir = path ? url.concat("/videos/path/?=", path) : url.concat("/videos")
   return fetch(`${dir}`).then((res) => res.json())
 }
 

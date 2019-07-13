@@ -6,7 +6,7 @@ const vlcHelper = require("./helpers/vlcHelper.js")
 const fsHelper = require("./helpers/fsHelper.js")
 const app = express()
 const port = process.env.PORT || 3001
-
+const url = process.env.URL || "C:/Users/wisem/Videos"
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use("*", cors())
@@ -14,12 +14,12 @@ app.use("*", cors())
 app.get("/", (req, res) => res.send("Hello World"))
 
 app.get("/videos", (req, res) => {
-  const videosTree = dirTree("C:/Users/wisem/Videos")
+  const videosTree = dirTree(url)
   res.send({ videosTree })
 })
 
-app.get("/videos/:path", (req, res) => {
-  const tree = dirTree(req.params.path)
+app.get("/videos/path", (req, res) => {
+  const tree = dirTree(req.query.path)
   res.send({ tree })
 })
 
