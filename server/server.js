@@ -38,4 +38,8 @@ app.get("/diskusage", (req, res) => {
   fsHelper.getDiskUsage(filepath).then((diskUsage) => res.send(diskUsage))
 })
 
+app.get('/nowplaying', (req, res) => {
+  const 
+})
+
 app.listen(port, () => console.log(`Server listening on port ${port}...`))
